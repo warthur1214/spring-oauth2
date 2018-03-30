@@ -1,0 +1,13 @@
+server:
+  port: 8091
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+
+spring:
+  redis:
+    host: 59.110.231.70
+    database: 1
+    password: 5737034557ef5b8c02c0e46513b98f90
