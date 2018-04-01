@@ -8,13 +8,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.jwt.Jwt;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
  * Created by warth on 2018/3/30.
  */
 @Configuration
-@EnableWebSecurity
+@EnableOAuth2Client
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
@@ -33,9 +36,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.requestMatchers().anyRequest()
-			.and()
-			.authorizeRequests()
-			.antMatchers("/oauth/*").permitAll();
+		http.cors()
+				.and().requestMatchers().anyRequest()
+				.and().authorizeRequests().antMatchers("/oauth/*").permitAll()
+				.and().formLogin();
+
+	}
+
+	@Bean
+	public JwtAccessTokenConverter jwtAccessTokenConverter() {
+		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
+		tokenConverter.setSigningKey("sajf;sakjf;askdfj");
+		return tokenConverter;
 	}
 }

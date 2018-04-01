@@ -1,10 +1,20 @@
 server:
-  port: 8091
+  port: 8080
 
 security:
   oauth2:
     resource:
       filter-order: 3
+      token-type: oauth2
+    client:
+      client-id: client_1
+      client-secret: 123456
+      authorized-grant-types: client_credentials,authorization_code,refresh_token,password
+      scope: userinfo
+      access-token-validity-seconds: 30
+      refresh-token-validity-seconds: 30
+      authorities: client
+      resource-ids: api
 
 spring:
   redis:

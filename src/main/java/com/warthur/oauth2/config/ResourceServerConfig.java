@@ -1,11 +1,13 @@
 package com.warthur.oauth2.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 
 /**
  * Created by warth on 2018/3/30.
@@ -14,7 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-	private static final String DEMO_RESOURCE_ID = "order";
+	private static final String DEMO_RESOURCE_ID = "api";
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) {
@@ -30,6 +32,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 				.anonymous()
 				.and()
 				.authorizeRequests()
-				.antMatchers("/order/**").authenticated();//配置order访问控制，必须认证过后才可以访问
+				.antMatchers("/api/**").authenticated();//配置order访问控制，必须认证过后才可以访问
 	}
 }
